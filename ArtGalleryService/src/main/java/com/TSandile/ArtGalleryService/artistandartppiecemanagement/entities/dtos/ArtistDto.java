@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtistDto {
-    private Long id;
     private String name;
     private String biography;
     private List<ArtPiece> artPieces;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("http://localhost:2025/api/v1/artist")
+@RequestMapping("/api/v1/artists")
 public class artistController {
     private final artistServiceImp artistServiceImp;
 
