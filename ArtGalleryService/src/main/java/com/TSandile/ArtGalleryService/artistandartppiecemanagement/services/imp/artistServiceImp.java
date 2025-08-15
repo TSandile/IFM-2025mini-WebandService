@@ -45,7 +45,7 @@ public class artistServiceImp implements artistService {
             existingArtist.setBiography(artistDto.getBiography());
             artistRepository.save(existingArtist);
             updated =  existingArtist;
-            System.out.println("Updated artist: " + updated);
+           // System.out.println("Updated artist: " + updated);
         }
         return updated;
 
