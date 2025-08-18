@@ -12,4 +12,5 @@ public class ArtPieceDto {
     private String title;
     private String description;
     private Artist artist;
+    private String imageUrl;
 }

@@ -19,11 +19,13 @@ public class ArtPiece {
     @JoinColumn(name = "artist_id",
     referencedColumnName = "id")
     private Artist artist;
+    private String imageUrl;
 
-    public ArtPiece(String title, String description){
+    public ArtPiece(String title, String description, String imageUrl){
         this.title = title;
         this.description = description;
         this.artist = new Artist();
+        this.imageUrl = imageUrl;
     }
 
 
