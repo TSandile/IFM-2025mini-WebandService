@@ -13,5 +13,6 @@ import java.util.List;
 public class ArtistDto {
     private String name;
     private String biography;
+    private String imaeURL;
     private List<ArtPiece> artPieces;
 }

@@ -2,10 +2,19 @@
   text-align: center;
 }
 
+#navbar{
+  position: fixed !important;
+  margin-top: 0% !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
+/* .container{
+  text-align: center;
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

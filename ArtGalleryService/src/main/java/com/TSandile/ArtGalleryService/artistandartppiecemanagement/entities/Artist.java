@@ -16,6 +16,7 @@ public class Artist {
     private Long id;
     private String name;
     private String biography;
+    private String imageURL;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "artP_id",
                 referencedColumnName = "id")

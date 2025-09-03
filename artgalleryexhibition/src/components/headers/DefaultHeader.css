@@ -1,0 +1,37 @@
+#nav-body{
+    margin-top: 0px !important;
+}
+#navbar{
+    margin-top: 0% !important;
+    padding: 0% !important;
+    background-color: #020202;
+    height: 80px;
+    position: fixed !important;
+    display: inline-block;
+    width: 100%;
+}
+
+#brand{
+    margin: 10px 20px;
+    text-align: justify;
+    text-decoration: solid;
+    color: #fbfafa;
+    font-size: large;
+    
+}
+
+.me-auto{
+    display: inline-block;
+    margin: 25px 20px;
+    text-decoration: solid;
+}
+
+.me-auto [href]{
+    margin: 20px 20px;
+    text-decoration: solid;
+    color: #fbfafa;
+    
+}
+
+
+

@@ -21,7 +21,8 @@ public class ArtPieceServiceImp implements artPieceService {
         if(artPieceDto != null){
             ArtPiece newArtPiece = new ArtPiece(
                     artPieceDto.getTitle(),
-                    artPieceDto.getDescription()
+                    artPieceDto.getDescription(),
+                    artPieceDto.getImageUrl()
             );
             artPieceRepository.save(newArtPiece);
         }
@@ -41,6 +42,7 @@ public class ArtPieceServiceImp implements artPieceService {
             ArtPiece existing = optionArtP.get();
             existing.setTitle(artPiece.getTitle());
             existing.setDescription(artPiece.getDescription());
+            existing.setImageUrl(artPiece.getImageUrl());
             artPieceRepository.save(existing);
             updated = existing;
         }else{
