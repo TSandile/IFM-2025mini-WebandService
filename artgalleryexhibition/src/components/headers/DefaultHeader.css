@@ -1,37 +1,50 @@
-#nav-body{
-    margin-top: 0px !important;
-}
-#navbar{
-    margin-top: 0% !important;
-    padding: 0% !important;
-    background-color: #020202;
-    height: 80px;
-    position: fixed !important;
-    display: inline-block;
-    width: 100%;
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#brand{
-    margin: 10px 20px;
-    text-align: justify;
-    text-decoration: solid;
-    color: #fbfafa;
-    font-size: large;
-    
+#def-nav{
+    background-color: black !important;
+    height: 110px;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding-right: 30px;
+}
+
+.nav-link {
+  margin-right: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+
+.nav-link.active {
+  font-weight: bold;
+  color: red;
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .me-auto{
-    display: inline-block;
-    margin: 25px 20px;
-    text-decoration: solid;
+    margin-left: 60px ;
 }
 
 .me-auto [href]{
-    margin: 20px 20px;
-    text-decoration: solid;
-    color: #fbfafa;
     
+    margin: 20px 15px;
+    text-decoration: solid;
 }
 
-
-
+.profile-component{
+    margin: 20px;
+    text-decoration: solid;
+    color: white;
+}

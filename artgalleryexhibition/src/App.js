@@ -7,6 +7,8 @@ import AllExhibition from "./pages/AllExhibition";
 import AllArtPiece from "./pages/AllArtPiece";
 import AllArtist from "./pages/AllArtist";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
