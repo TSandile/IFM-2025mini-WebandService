@@ -3,9 +3,12 @@
     flex-direction: column;
     border-radius: 20px;
     justify-content: space-between;
-    background-color: black;
+    background-color: white;
     height: 450px;
     margin: 70px 70px;
+    border-color: black;
+    border-width: 5px;
+    border-style: solid;
 }
 
 .img-section{
@@ -21,6 +24,17 @@
 }
 
 .mb-3{
-    margin: 10px;
+    margin: 10px 30px;
     
+}
+
+.text-field{
+    size: 80px;
+}
+
+#btn-confirm{
+    background-color: black;
+    color: white;
+    width: 300px;
+    font: bold;
 }
