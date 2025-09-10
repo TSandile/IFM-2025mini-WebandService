@@ -8,6 +8,7 @@ import AllArtPiece from "./pages/AllArtPiece";
 import AllArtist from "./pages/AllArtist";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import ArtistManage from "./pages/artist/ArtistManage";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/exhibitions" element={<AllExhibition />} />
         <Route path="/artpieces" element={<AllArtPiece />} />
         <Route path="/artists" element={<AllArtist />} />
+        <Route path="/artistmanager" element={<ArtistManage />} />
       </Routes>
     </>
   );

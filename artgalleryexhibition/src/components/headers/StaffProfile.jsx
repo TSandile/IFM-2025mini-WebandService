@@ -4,7 +4,7 @@ import "../headers/Profile.css";
 import { NavDropdown } from "react-bootstrap";
 
 const StaffProfile = () => {
-  const [position, setPosition] = useState("manager");
+  const [position, setPosition] = useState("owner");
 
   const displayStaffField = () => {
     if (position === "manager") {
@@ -27,7 +27,7 @@ const StaffProfile = () => {
         <>
           <div className="dropdown-nav">
             <NavDropdown title="Owner Management" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="">
+              <NavDropdown.Item as={Link} to="artistmanager">
                 Manage Artists
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="">
@@ -49,7 +49,7 @@ const StaffProfile = () => {
             </NavLink>
             {}
             <NavLink as={Link} to="" href="">
-              Exhibition
+              Exhibition Management
             </NavLink>
           </div>
         </>
