@@ -26,11 +26,15 @@ const StaffProfile = () => {
       return (
         <>
           <div className="dropdown-nav">
-            <NavDropdown title="Owner Management" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="artistmanager">
+            <NavDropdown
+              title="Owner Management"
+              id="basic-nav-dropdown"
+              className="custom-nav-dropdown"
+            >
+              <NavDropdown.Item as={Link} to="addartist">
                 Manage Artists
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="">
+              <NavDropdown.Item as={Link} to="addartpiece">
                 Manage Art Pieces
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="">

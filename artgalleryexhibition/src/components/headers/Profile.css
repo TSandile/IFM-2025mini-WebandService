@@ -9,3 +9,11 @@
     color: white;
     margin: 20px 20px;
 }
+
+.custom-nav-dropdown .dropdown-menu{
+    background-color: black;
+}
+
+.custom-nav-dropdown .dropdown-item{
+    color: white;
+}

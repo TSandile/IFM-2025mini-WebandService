@@ -1,19 +1,19 @@
 import { Form } from "react-bootstrap";
 import { Button, TextField } from "@mui/material";
-import "../artist/ArtistManage.css";
+import "../artPiece/AddArtPiece.css";
 
-const AddArtist = () => {
+const AddArtPiece = () => {
   return (
     <>
       <div className="center-form d-flex justify-content-center align-items-center">
-        <h1>Add Artist</h1>
+        <h1>Add Art Piece</h1>
         <section className="form-section">
           <Form className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 className="text-field"
                 id="outlined-basic"
-                label="Artist Name"
+                label="Art Piece Title"
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
@@ -25,7 +25,19 @@ const AddArtist = () => {
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 id="outlined-basic"
-                label="Biography"
+                label="Description"
+                varient="outlined"
+                type="text"
+                sx={{ width: 340 }}
+              />
+            </Form.Group>
+          </Form>
+
+          <Form className="d-flex justify-content-around">
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <TextField
+                id="outlined-basic"
+                label="Artist"
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
@@ -52,5 +64,4 @@ const AddArtist = () => {
     </>
   );
 };
-
-export default AddArtist;
+export default AddArtPiece;
