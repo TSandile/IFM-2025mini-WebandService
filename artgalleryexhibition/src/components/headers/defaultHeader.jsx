@@ -13,13 +13,13 @@ const DefaultHeader = () => {
     <>
       <Navbar bg="dark" data-bs-theme="dark" id="def-nav">
         <Container>
-          <Navbar.Brand to="/" id="brand" href="">
+          <Navbar.Brand to="/" id="brand" href="home">
             Navbar
           </Navbar.Brand>
           <Nav className="me-auto">
             <NavLink
               to="/"
-              href=""
+              href="home"
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
@@ -32,7 +32,7 @@ const DefaultHeader = () => {
             <NavLink
               as={Link}
               to="exhibitions"
-              href=""
+              href="exhibitions"
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
@@ -44,7 +44,7 @@ const DefaultHeader = () => {
             </NavLink>
             <NavLink
               to="artpieces"
-              href=""
+              href="artpieces"
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
@@ -56,7 +56,7 @@ const DefaultHeader = () => {
             </NavLink>
             <NavLink
               to="artists"
-              href=""
+              href="artists"
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",

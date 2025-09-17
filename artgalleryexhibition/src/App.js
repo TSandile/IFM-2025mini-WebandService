@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ArtistManage from "./pages/artist/ArtistManage";
 import AddArtist from "./pages/artist/AddArtist";
 import AddArtPiece from "./pages/artPiece/AddArtPiece";
+import AddExhibition from "./pages/exhibition/AddExhibition";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/artists" element={<AllArtist />} />
         <Route path="/addartist" element={<AddArtist />} />
         <Route path="/addartpiece" element={<AddArtPiece />} />
+        <Route path="/addexhibition" element={<AddExhibition />} />
       </Routes>
     </>
   );

@@ -37,7 +37,7 @@ const StaffProfile = () => {
               <NavDropdown.Item as={Link} to="addartpiece">
                 Manage Art Pieces
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="">
+              <NavDropdown.Item as={Link} to="addexhibition">
                 Manage Exhibitions
               </NavDropdown.Item>
             </NavDropdown>

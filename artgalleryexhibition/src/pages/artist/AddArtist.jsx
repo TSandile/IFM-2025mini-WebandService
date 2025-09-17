@@ -1,14 +1,55 @@
 import { Form } from "react-bootstrap";
 import { Button, TextField } from "@mui/material";
 import "../artist/ArtistManage.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddArtist = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    biography: "",
+    image: null,
+  });
+
+  //handler for text input
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  //handler for file input
+  const handleFileChange = (event) => {
+    setFormData({
+      ...formData,
+      image: event.target.files[0], //store file object itself
+    });
+  };
+
+  //specific handler for submit
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("form data submitted:", formData);
+    alert(" Artist form data submitted");
+
+    //reset the form to their initial state
+    // setFormData({
+    //   name: "",
+    //   biography: "",
+    //   image: null,
+    // });
+  };
+
   return (
     <>
       <div className="center-form d-flex justify-content-center align-items-center">
         <h1>Add Artist</h1>
-        <section className="form-section">
-          <Form className="d-flex justify-content-around">
+        <Form onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 className="text-field"
@@ -17,11 +58,15 @@ const AddArtist = () => {
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
+                //for dynamic data
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
               />
             </Form.Group>
-          </Form>
+          </div>
 
-          <Form className="d-flex justify-content-around">
+          <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 id="outlined-basic"
@@ -29,25 +74,41 @@ const AddArtist = () => {
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
+                //for dynamic data
+                name="biography"
+                value={formData.biography}
+                onChange={handleInputChange}
               />
             </Form.Group>
-          </Form>
+          </div>
 
-          <Form className="d-flex justify-content-around">
+          <div className="d-flex justify-content-around">
             <span> Upload Image</span>
-          </Form>
+          </div>
 
-          <Form className="d-flex justify-content-around">
+          <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
-              <TextField varient="outlined" type="file" />
+              <TextField
+                varient="outlined"
+                type="file"
+                name="image"
+                onChange={handleFileChange}
+                InputProps={{ inputProps: { accept: "images/*" } }}
+              />
             </Form.Group>
-          </Form>
-        </section>
-        <div>
-          <Button id="btn-confirm" variant="contained" size="large">
-            Confirm
-          </Button>
-        </div>
+          </div>
+
+          <div className="d-flex justify-content-around">
+            <Button
+              type="submit"
+              id="btn-confirm"
+              variant="contained"
+              size="large"
+            >
+              Confirm
+            </Button>
+          </div>
+        </Form>
       </div>
     </>
   );
