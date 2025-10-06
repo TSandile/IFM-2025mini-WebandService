@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
+import { FaHome, FaPalatte, FaCube, FaUsers, FaImages } from "react-icons/fa";
 
 import "../headers/defNav.css";
 //import "../headers/DefaultHeader.css";
@@ -23,10 +24,17 @@ const DefaultHeader = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "red" : "white",
+                  color: isActive ? "black" : "white",
+
+                  border: isActive ? "1px solid grey" : "none",
+                  padding: isActive ? "10px" : "10px",
+                  margin: "20px 5px",
+
+                  backgroundColor: isActive ? "grey" : "transparent",
                 };
               }}
             >
+              <FaHome style={{ marginBottom: "5px", marginRight: "4px" }} />
               Home
             </NavLink>
             <NavLink
@@ -36,10 +44,17 @@ const DefaultHeader = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "red" : "white",
+                  color: isActive ? "black" : "white",
+
+                  border: isActive ? "1px solid grey" : "none",
+                  padding: isActive ? "10px" : "10px",
+                  margin: "20px 5px",
+
+                  backgroundColor: isActive ? "grey" : "transparent",
                 };
               }}
             >
+              <FaCube style={{ marginBottom: "5px", marginRight: "4px" }} />
               Exhibitions
             </NavLink>
             <NavLink
@@ -48,10 +63,24 @@ const DefaultHeader = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "red" : "white",
+                  color: isActive ? "black" : "white",
+
+                  border: isActive ? "1px solid grey" : "none",
+                  padding: isActive ? "10px" : "10px",
+                  margin: "20px 5px",
+
+                  backgroundColor: isActive ? "grey" : "transparent",
+                  // fontWeight: isActive ? "bold" : "",
+                  // color: isActive ? "red" : "white",
+
+                  // border: isActive ? "1px solid grey" : "none",
+                  // padding: isActive ? "10px" : "10px",
+                  // margin: "20px 5px",
+                  // borderRadius: "4px",
                 };
               }}
             >
+              <FaImages style={{ marginBottom: "5px", marginRight: "4px" }} />
               Art Pieces
             </NavLink>
             <NavLink
@@ -60,10 +89,17 @@ const DefaultHeader = () => {
               style={({ isActive }) => {
                 return {
                   fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "red" : "white",
+                  color: isActive ? "black" : "white",
+
+                  border: isActive ? "1px solid grey" : "none",
+                  padding: isActive ? "10px" : "10px",
+                  margin: "20px 5px",
+
+                  backgroundColor: isActive ? "grey" : "transparent",
                 };
               }}
             >
+              <FaUsers style={{ marginBottom: "5px", marginRight: "4px" }} />
               Featured Artists
             </NavLink>
           </Nav>
