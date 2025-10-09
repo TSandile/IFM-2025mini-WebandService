@@ -16,7 +16,9 @@ public class Artist {
     private Long id;
     private String name;
     private String biography;
-    private String imageURL;
+
+//    @Lob
+//    private byte[] imageURL;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "artP_id",
                 referencedColumnName = "id")
@@ -26,8 +28,14 @@ public class Artist {
     public Artist(String name, String biography){
         this.name = name;
         this.biography = biography;
-        artPieces = new ArrayList<>();
+       // artPieces = new ArrayList<>();
     }
+
+//    public Artist(String name, String biography, byte[] image){
+//        this.name = name;
+//        this.biography = biography;
+//        this.imageURL = image;
+//    }
 
     protected void addArtPiece(ArtPiece artPiece){
         artPieces.add(artPiece);

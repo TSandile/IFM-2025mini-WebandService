@@ -6,40 +6,93 @@ import { useState } from "react";
 
 const AddArtPiece = () => {
   const navigate = useNavigate();
+  // const [formData, setFormData] = useState({
+  //   title: "",
+  //   description: "",
+  //   artist: { name: "", biography: "", image: null },
+  //   image: null,
+  // });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    artist: "",
-    image: null,
+    image_url: null,
+    artist: {
+      name: "",
+      biography: "",
+      imageurl: null,
+    },
   });
 
-  //handler text input change
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const [pieceImage, setPieceImage] = useState(null);
+  const [artistImage, setArtistImage] = useState(null);
+
+  const handleArtistImage = (e) => {
+    setArtistImage(e.target.files[0]);
   };
 
-  //handler for file input
-  const handleFileChange = (event) => {
-    setFormData({
-      ...formData,
-      image: event.target.files[0], //store file object itself
-    });
+  const handleArtPieceImage = (e) => {
+    setPieceImage(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  // Handler for standard text inputs (handles nesting for artist fields)
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name in formData.artist) {
+      // Handle nested artist fields
+      setFormData((prev) => ({
+        ...prev,
+        artist: {
+          ...prev.artist,
+          [name]: value,
+        },
+      }));
+    } else {
+      // Handle top-level fields
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form data submitted:", formData);
+    // console.log("form data submitted:", formData);
+    // formData.artist.artistImg = artistImage;
+    // formData.artImg = pieceImage;
+    // console.log("--- Form Submitted ---");
+    // console.log("Art Piece Data:", formData);
+    // console.log("Art Piece Image:", pieceImage ? pieceImage.name : "No file");
+    // console.log("Artist Image:", artistImage ? artistImage.name : "No file");
+
+    formData.artist.imageurl = artistImage;
+    formData.image_url = pieceImage;
+    try {
+      const response = await fetch(
+        "http://localhost:2025/api/v1/artPiece/addArtPiece",
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.text();
+      console.log("added artpiece:", data);
+    } catch (error) {
+      console.log("error adding art piece", error.message);
+    }
+
     alert(" Artist form data submitted");
   };
 
   return (
     <>
       <div className="center-form d-flex justify-content-center align-items-center">
-        <h1>Add Art Piece</h1>
+        <h1>Add Art Piece Section</h1>
         <Form onSubmit={handleSubmit}>
           <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -56,9 +109,7 @@ const AddArtPiece = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-          </div>
 
-          <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 id="outlined-basic"
@@ -75,23 +126,7 @@ const AddArtPiece = () => {
           </div>
 
           <div className="d-flex justify-content-around">
-            <Form.Group className="mb-3" controlId="formGroupEmail">
-              <TextField
-                id="outlined-basic"
-                label="Artist"
-                varient="outlined"
-                type="text"
-                sx={{ width: 340 }}
-                //for dynamic input
-                name="artist"
-                value={formData.artist}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-          </div>
-
-          <div className="d-flex justify-content-around">
-            <span> Upload Image</span>
+            <span> Upload ArtPiece Image</span>
           </div>
 
           <div className="d-flex justify-content-around">
@@ -99,12 +134,68 @@ const AddArtPiece = () => {
               <TextField
                 varient="outlined"
                 type="file"
-                name="image"
-                onChange={handleFileChange}
+                name="file"
+                onChange={handleArtPieceImage}
+                // inputProps={{ accept: "image/*" }}
               />
             </Form.Group>
           </div>
-          <div>
+          <hr />
+          {/* Add artist section start */}
+          <div className="d-flex justify-content-around">
+            <h1>Add Artist Section</h1>
+          </div>
+
+          <div className="d-flex justify-content-around">
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <TextField
+                className="text-field"
+                id="outlined-basic"
+                label="Artist Name"
+                varient="outlined"
+                type="text"
+                sx={{ width: 340 }}
+                //for dynamic data
+                name="name"
+                value={formData.artist.name}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <TextField
+                id="outlined-basic"
+                label="Biography"
+                varient="outlined"
+                type="text"
+                sx={{ width: 340 }}
+                //for dynamic data
+                name="biography"
+                value={formData.artist.biography}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </div>
+
+          <div className="d-flex justify-content-around"></div>
+
+          <div className="d-flex justify-content-around">
+            <span> Upload Artist Image</span>
+          </div>
+
+          <div className="d-flex justify-content-around">
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <TextField
+                varient="outlined"
+                type="file"
+                name="file"
+                onChange={handleArtistImage}
+                // InputProps={{ inputProps: { accept: "images/*" } }}
+              />
+            </Form.Group>
+          </div>
+          {/* Add artist section end */}
+          <div className="d-flex justify-content-around">
             <Button
               type="submit"
               id="btn-confirm"

@@ -8,5 +8,6 @@ public interface artistService {
     public Artist getArtist(Long id);
     public Artist updateArtist(Long id, ArtistDto artistDto);
     public void deleteArtist(Long id);
+
    // public List<Artist> getAllArtists();
 }

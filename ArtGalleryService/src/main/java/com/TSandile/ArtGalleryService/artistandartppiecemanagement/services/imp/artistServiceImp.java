@@ -21,6 +21,7 @@ public class artistServiceImp implements artistService {
             Artist newArtist = new Artist(
                     artistDto.getName(),
                     artistDto.getBiography()
+                //    artistDto.getImageURL()
             );
             artistRepository.save(newArtist);
         }else{
@@ -43,7 +44,7 @@ public class artistServiceImp implements artistService {
 
             existingArtist.setName(artistDto.getName());
             existingArtist.setBiography(artistDto.getBiography());
-            existingArtist.setImageURL(artistDto.getImaeURL());
+          //  existingArtist.setImageURL(artistDto.getImageURL());
             artistRepository.save(existingArtist);
             updated =  existingArtist;
            // System.out.println("Updated artist: " + updated);

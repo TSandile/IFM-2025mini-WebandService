@@ -19,14 +19,18 @@ public class ArtPiece {
     @JoinColumn(name = "artist_id",
     referencedColumnName = "id")
     private Artist artist;
-    private String imageUrl;
+//    @Lob
+//    private byte[] imageUrl;
 
-    public ArtPiece(String title, String description, String imageUrl){
+
+    public ArtPiece(String title, String description,Artist newArtist){
         this.title = title;
         this.description = description;
-        this.artist = new Artist();
-        this.imageUrl = imageUrl;
+        this.artist = newArtist;
+     //   this.imageUrl = imageUrl;
     }
+
+
 
 
 

@@ -12,6 +12,9 @@ import ArtistManage from "./pages/artist/ArtistManage";
 import AddArtist from "./pages/artist/AddArtist";
 import AddArtPiece from "./pages/artPiece/AddArtPiece";
 import AddExhibition from "./pages/exhibition/AddExhibition";
+import UpdateArtPiece from "./pages/artPiece/UpdateArtPiece";
+import DeleteArtPiece from "./pages/artPiece/DeleteArtPiece";
+import ManageArtPieces from "./pages/artPiece/ManageArtPieces";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -27,6 +30,11 @@ function App() {
         <Route path="/addartist" element={<AddArtist />} />
         <Route path="/addartpiece" element={<AddArtPiece />} />
         <Route path="/addexhibition" element={<AddExhibition />} />
+
+        {/* Owner management route pages */}
+        <Route path="/manageArtpieces" element={<ManageArtPieces />} />
+        <Route path="/updateArtPiece/:id" element={<UpdateArtPiece />} />
+        <Route path="/deleteArtPiece/:id" element={<DeleteArtPiece />} />
       </Routes>
     </>
   );
