@@ -32,6 +32,21 @@ public class artistServiceImp implements artistService  {
     }
 
     @Override
+    public String addArtistwithImage(ArtistDto artistDto){
+        if(artistDto != null){
+            Artist newArtist = new Artist(
+                    artistDto.getName(),
+                    artistDto.getBiography(),
+                    artistDto.getImageData()
+            );
+            artistRepository.save(newArtist);
+        }else{
+            throw new NullPointerException("Entity passed is empty");
+        }
+        return "Success";
+    }
+
+    @Override
     public Artist getArtist(Long id) {
         return artistRepository.findById(id).orElse(null);
     }

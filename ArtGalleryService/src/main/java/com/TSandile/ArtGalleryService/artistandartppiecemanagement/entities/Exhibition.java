@@ -1,16 +1,15 @@
 package com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.grammars.hql.HqlParser;
 
+import java.awt.*;
 import java.time.LocalDate;
 
 
-//@Entity
+@Entity
 @Data
 public class Exhibition {
     @Id
@@ -18,11 +17,15 @@ public class Exhibition {
     private Long id;
     // title,description, start_date, end_date, status
     private String title;
-
     // format: YYYY-MM-DD.
     private LocalDate start_date;
     private LocalDate end_date;
     private ExhibitionStatus status;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id",
+    referencedColumnName = "id")
+    private ImageData imageData;
 
     public Exhibition(){};
 

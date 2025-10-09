@@ -61,7 +61,7 @@ public class ArtPieceServiceImp implements artPieceService {
             Artist tempArtist = artistRepository.findById(tempArtpiece.getArtist().getId()).orElse(null);
             if(tempArtist != null){
                 retArtPiece = new ArtPiece(
-                        tempArtpiece.getId(),
+//                        tempArtpiece.getId(),
                         tempArtpiece.getTitle(),
                         tempArtpiece.getDescription(),
                          artistService.getArtist(tempArtpiece.getArtist().getId())

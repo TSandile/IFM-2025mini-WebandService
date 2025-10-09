@@ -1,6 +1,7 @@
 package com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos;
 
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.ExhibitionStatus;
+import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class ExhibitionDto {
     private LocalDate start_date;
     private LocalDate end_date;
     private ExhibitionStatus status;
+    private ImageData imageData;
 }

@@ -11,6 +11,7 @@ public interface artistService {
     public Artist updateArtist(Long id, ArtistDto artistDto);
     public void deleteArtist(Long id);
     public List<Artist> getAllArtist();
+    public String addArtistwithImage(ArtistDto artistDto);
 
    // public List<Artist> getAllArtists();
 }

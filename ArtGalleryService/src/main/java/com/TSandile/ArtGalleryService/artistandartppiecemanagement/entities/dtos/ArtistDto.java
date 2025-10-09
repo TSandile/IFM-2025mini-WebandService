@@ -1,6 +1,7 @@
 package com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos;
 
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.ArtPiece;
+import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
 import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,6 @@ import java.util.List;
 public class ArtistDto {
     private String name;
     private String biography;
-    @Lob
-    private byte[] imageURL;
+    private ImageData imageData;
     private List<ArtPiece> artPieces;
 }
