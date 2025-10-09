@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +34,11 @@ public class artistController {
            return ResponseEntity.noContent().build();
        }
         return ResponseEntity.ok(artist);
+    }
+
+    @GetMapping("/getAllArtists")
+    public List<Artist> getAllArtist(){
+        return artistServiceImp.getAllArtist();
     }
 
     @PatchMapping("/updateArtist/{id}")

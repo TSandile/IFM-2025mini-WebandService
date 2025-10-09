@@ -60,7 +60,7 @@ const StaffProfile = () => {
                 <NavDropdown.Item as={Link} to="addartist">
                   Add New Artist
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="">
+                <NavDropdown.Item as={Link} to="manageArtist">
                   Show All Artists
                 </NavDropdown.Item>
               </NavDropdown>

@@ -8,11 +8,12 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class artistServiceImp implements artistService {
+public class artistServiceImp implements artistService  {
     private final artistRepository artistRepository;
 
     @Override
@@ -59,5 +60,10 @@ public class artistServiceImp implements artistService {
             throw new EntityNotFoundException("Artist with id: " + id + " not found");
         }
         artistRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Artist> getAllArtist() {
+        return artistRepository.findAll();
     }
 }

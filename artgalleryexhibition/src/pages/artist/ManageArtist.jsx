@@ -1,33 +1,32 @@
-//import "/css/Home.css";
 import { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const ManageArtPiece = () => {
-  const [artPiece, setArtPiece] = useState([]);
+const ManageArtist = () => {
+  const [artist, setArtist] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchArtPieces = async () => {
+    const fetchArtist = async () => {
       try {
         const response = await fetch(
-          "http://localhost:2025/api/v1/artPiece/getAllArtPieces"
+          "http://localhost:2025/api/v1/artists/getAllArtists"
         );
         const data = await response.json();
-        setArtPiece(data);
+        setArtist(data);
       } catch (error) {
-        console.error("Error fetching art pieces:", error);
+        console.error("Error fetching artist:", error);
       }
     };
-    fetchArtPieces();
+    fetchArtist();
   }, []);
 
   const handleUpdate = (id) => {
-    navigate(`/updateArtPiece/${id}`);
+    navigate(`/updateArtist/${id}`);
   };
 
   const handleDelete = (id) => {
-    navigate(`/deleteArtPiece/${id}`);
+    navigate(`/deleteArtist/${id}`);
   };
 
   return (
@@ -43,7 +42,7 @@ const ManageArtPiece = () => {
             marginBottom: "20px",
           }}
         >
-          Art Piece Management
+          Artist Management
         </h1>
         <br />
 
@@ -53,7 +52,7 @@ const ManageArtPiece = () => {
           hover
           variant="light"
           style={{
-            width: "90%",
+            width: "70%",
             margin: "0 auto",
             marginTop: "20px",
             alignItems: "center",
@@ -64,20 +63,19 @@ const ManageArtPiece = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>ArtPiece Title</th>
-              <th>Description</th>
               <th>Artist Name</th>
+              <th>Biography</th>
 
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {artPiece.map((piece) => (
-              <tr key={piece.id}>
-                <td>{piece.id}</td>
-                <td>{piece.title}</td>
-                <td>{piece.description}</td>
-                <td>{piece.artist.name}</td>
+            {artist.map((artist) => (
+              <tr key={artist.id}>
+                <td>{artist.id}</td>
+                <td>{artist.name}</td>
+                <td>{artist.biography}</td>
+
                 <td>
                   <Button
                     style={{
@@ -87,14 +85,14 @@ const ManageArtPiece = () => {
                       font: "bold",
                     }}
                     variant="outline-secondary"
-                    onClick={() => handleUpdate(piece.id)}
+                    onClick={() => handleUpdate(artist.id)}
                   >
                     Update
                   </Button>{" "}
                   <Button
                     style={{ width: "200px", font: "bold" }}
                     variant="outline-danger"
-                    onClick={() => handleDelete(piece.id)}
+                    onClick={() => handleDelete(artist.id)}
                   >
                     Delete
                   </Button>
@@ -107,4 +105,4 @@ const ManageArtPiece = () => {
     </>
   );
 };
-export default ManageArtPiece;
+export default ManageArtist;
