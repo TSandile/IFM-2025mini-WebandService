@@ -48,7 +48,7 @@ const DeleteArtPiece = () => {
     event.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:2025/api/v1/artPiece/deleteArtPiece/${id}`,
+        `http://localhost:2025/api/v1/artists/removeArtist/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -58,7 +58,7 @@ const DeleteArtPiece = () => {
       );
       if (response.ok) {
         alert("Art Piece deleted successfully");
-        navigate("/manageArtPieces");
+        navigate("/manageArtist");
       }
     } catch (error) {
       console.error("Error deleting art piece:", error);

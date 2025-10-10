@@ -4,56 +4,74 @@ import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.ArtP
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
+@Builder
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String biography;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "imageId",
     referencedColumnName = "id")
     private ImageData imageData;
 
-//    @Lob
-//    private byte[] imageURL;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "artP_id",
-                referencedColumnName = "id")
-    private List<ArtPiece> artPieces;
 
-    public Artist(){}
+//    @Lob
+//    @Column(name = "imageData", length= 1000 )
+//   private byte[] imageData;
+
+//    @Lob
+//    @Column(name = "imageD", columnDefinition = "LONGBLOB")
+//    private byte[] imageD;
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "imageId",
+//    referencedColumnName = "id")
+//    private ImageData imageData;
+
+//    @Lob
+////    private byte[] imageURL;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "artP_id",
+//                referencedColumnName = "id")
+//    private List<ArtPiece> artPieces;
+
+public Artist(String name, String biography, ImageData imageData){
+    this.name = name;
+    this.biography = biography;
+    this.imageData = imageData;
+}
+
     public Artist(String name, String biography){
         this.name = name;
         this.biography = biography;
        // artPieces = new ArrayList<>();
     }
 
-    public Artist(String name,String biography, ImageData imageData){
-        this.name = name;
-        this.biography = biography;
-        this.imageData = imageData;
-    }
+
 
 //    public Artist(String name, String biography, byte[] image){
 //        this.name = name;
 //        this.biography = biography;
-//        this.imageURL = image;
+//        this.imageD = image;
 //    }
 
-    protected void addArtPiece(ArtPiece artPiece){
-        artPieces.add(artPiece);
-    }
+//    protected void addArtPiece(ArtPiece artPiece){
+//        artPieces.add(artPiece);
+//    }
     /*
     public String getName() {
         return name;

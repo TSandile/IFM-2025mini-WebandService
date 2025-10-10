@@ -31,9 +31,34 @@ const AddArtist = () => {
   };
 
   //specific handler for submit
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("form data submitted:", formData);
+
+    const dataTosSend = new FormData();
+    dataTosSend.append("name", formData.name);
+    dataTosSend.append("biography", formData.biography);
+    dataTosSend.append("image", formData.image);
+
+    try {
+      const response = await fetch(
+        "http://localhost:2025/api/v1/artists/uploadArtist",
+
+        {
+          method: "POST",
+          body: dataTosSend,
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+        }
+      );
+
+      const data = await response.text();
+      console.log("added artist:", data);
+    } catch (error) {
+      console.log("error adding artist", error.message);
+    }
+
     alert(" Artist form data submitted");
 
     //reset the form to their initial state

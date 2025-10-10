@@ -33,6 +33,12 @@ public class ImageService {
         return images;
     }
 
+    public byte[] downloadById(Long id){
+        Optional<ImageData> dbImageData = imageRepository.findById(id);
+            byte[] images = ImageUtils.decompressImage(dbImageData.get().getImageData());
+            return images;
+        }
+    }
 
 
-}
+

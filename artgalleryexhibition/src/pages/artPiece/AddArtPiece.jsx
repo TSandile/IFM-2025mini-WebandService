@@ -15,11 +15,11 @@ const AddArtPiece = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    image_url: null,
+    image: null,
     artist: {
       name: "",
       biography: "",
-      imageurl: null,
+      image: null,
     },
   });
 
@@ -61,27 +61,37 @@ const AddArtPiece = () => {
     // console.log("form data submitted:", formData);
     // formData.artist.artistImg = artistImage;
     // formData.artImg = pieceImage;
-    // console.log("--- Form Submitted ---");
-    // console.log("Art Piece Data:", formData);
-    // console.log("Art Piece Image:", pieceImage ? pieceImage.name : "No file");
-    // console.log("Artist Image:", artistImage ? artistImage.name : "No file");
+    console.log("--- Form Submitted ---");
+    console.log("Art Piece Data:", formData);
+    console.log("Art Piece Image:", pieceImage ? pieceImage.name : "No file");
+    console.log("Artist Image:", artistImage ? artistImage.name : "No file");
 
-    formData.artist.imageurl = artistImage;
-    formData.image_url = pieceImage;
+    formData.artist.image = artistImage;
+    formData.image = pieceImage;
+
+    const dataToSend = new FormData();
+    dataToSend.append("title", formData.title);
+    dataToSend.append("description", formData.description);
+    dataToSend.append("image", formData.image);
+    dataToSend.append("name", formData.artist.name);
+    dataToSend.append("biography", formData.artist.biography);
+    dataToSend.append("image", formData.artist.image);
+
     try {
       const response = await fetch(
-        "http://localhost:2025/api/v1/artPiece/addArtPiece",
+        "http://localhost:2025/api/v1/artPiece/uploadArtPiece",
         {
           method: "POST",
-          body: JSON.stringify(formData),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          body: dataToSend,
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
         }
       );
 
       const data = await response.text();
       console.log("added artpiece:", data);
+      navigate("/manageArtPieces");
     } catch (error) {
       console.log("error adding art piece", error.message);
     }

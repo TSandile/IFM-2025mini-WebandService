@@ -16,6 +16,6 @@ public class ExhibitionDto {
     // format: YYYY-MM-DD.
     private LocalDate start_date;
     private LocalDate end_date;
-    private ExhibitionStatus status;
+    private String status;
     private ImageData imageData;
 }

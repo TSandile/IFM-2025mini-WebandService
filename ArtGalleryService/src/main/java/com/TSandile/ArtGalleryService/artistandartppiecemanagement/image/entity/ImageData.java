@@ -21,4 +21,8 @@ public class ImageData {
     @Lob
     @Column(name = "imagedata", length = 1000)
     private byte[] imageData;
+
+    public ImageData(byte[] imageData){
+        this.imageData = imageData;
+    }
 }

@@ -84,6 +84,7 @@ const AddExhibition = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("form data submitted:", formData);
+
     alert(" Artist form data submitted");
   };
 

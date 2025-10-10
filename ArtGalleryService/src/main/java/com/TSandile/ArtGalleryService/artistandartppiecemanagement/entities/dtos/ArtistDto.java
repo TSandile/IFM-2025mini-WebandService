@@ -6,6 +6,7 @@ import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
 public class ArtistDto {
     private String name;
     private String biography;
-    private ImageData imageData;
-    private List<ArtPiece> artPieces;
+    private MultipartFile imageFile;
+//    private List<ArtPiece> artPieces;
 }

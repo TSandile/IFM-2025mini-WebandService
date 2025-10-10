@@ -3,6 +3,7 @@ package com.TSandile.ArtGalleryService.artistandartppiecemanagement.services;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.Artist;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos.ArtistDto;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface artistService {
@@ -11,7 +12,7 @@ public interface artistService {
     public Artist updateArtist(Long id, ArtistDto artistDto);
     public void deleteArtist(Long id);
     public List<Artist> getAllArtist();
-    public String addArtistwithImage(ArtistDto artistDto);
+    public String addArtistwithImage(ArtistDto artistDto) throws IOException;
 
    // public List<Artist> getAllArtists();
 }
