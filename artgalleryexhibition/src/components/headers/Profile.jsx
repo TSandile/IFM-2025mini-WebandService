@@ -23,11 +23,11 @@ const Profile = () => {
     return (
       <>
         <div className="profile-component">
-          <NavLink as={Link} to="" href="">
+          <NavLink as={Link} to="register" href="">
             Sign Up
           </NavLink>
           {}
-          <NavLink as={Link} to="" href="">
+          <NavLink as={Link} to="login" href="">
             Sign In
           </NavLink>
         </div>

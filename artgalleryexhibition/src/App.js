@@ -21,6 +21,8 @@ import DeleteArtist from "./pages/artist/DeleteArtist";
 import ManageExhibition from "./pages/exhibition/ManageExhibition";
 import UpdateExhibition from "./pages/exhibition/UpdateExhibition";
 import ExhibitionArtPiece from "./pages/exhibition/ExhibitionArtPiece";
+import Register from "./pages/user/Register";
+import Login from "./pages/user/login";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -36,16 +38,13 @@ function App() {
         <Route path="/addartist" element={<AddArtist />} />
         <Route path="/addartpiece" element={<AddArtPiece />} />
         <Route path="/addexhibition" element={<AddExhibition />} />
-
         {/* Owner management route pages */}
         <Route path="/manageArtpieces" element={<ManageArtPieces />} />
         <Route path="/updateArtPiece/:id" element={<UpdateArtPiece />} />
         <Route path="/deleteArtPiece/:id" element={<DeleteArtPiece />} />
-
         <Route path="/manageArtist" element={<ManageArtist />} />
         <Route path="/updateArtist/:id" element={<UpdateArtist />} />
         <Route path="/deleteArtist/:id" element={<DeleteArtist />} />
-
         <Route path="/manageExhibition" element={<ManageExhibition />} />
         <Route path="/updateExhibition/:id" element={<UpdateExhibition />} />
         <Route path="/deleteExhibition/:id" element={<ManageExhibition />} />
@@ -53,6 +52,9 @@ function App() {
           path="/exhibitionArtPiece/:id"
           element={<ExhibitionArtPiece />}
         />
+        User registration and login route pages
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
