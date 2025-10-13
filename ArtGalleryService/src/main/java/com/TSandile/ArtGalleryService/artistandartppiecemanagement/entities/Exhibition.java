@@ -31,7 +31,6 @@ public class Exhibition {
     private ImageData imageData;
 
 
-
     public Exhibition(String title, LocalDate startDate, LocalDate endDate, String status){
         this.title = title;
         this.start_date = startDate;

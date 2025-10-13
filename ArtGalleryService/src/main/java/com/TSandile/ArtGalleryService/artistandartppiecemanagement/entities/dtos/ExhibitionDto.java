@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ExhibitionDto {
     private String title;
+    private String description;
     // format: YYYY-MM-DD.
     private LocalDate start_date;
     private LocalDate end_date;

@@ -45,9 +45,11 @@ public class exhibitionServiceImp implements exhibitionService {
             Exhibition existingExhibition = optionExhibition.get();
 
             existingExhibition.setTitle(exhibitionDto.getTitle());
+            existingExhibition.setDescription(exhibitionDto.getDescription());
             existingExhibition.setStart_date(exhibitionDto.getStart_date());
             existingExhibition.setEnd_date(exhibitionDto.getEnd_date());
             existingExhibition.setStatus(exhibitionDto.getStatus());
+            existingExhibition.setImageData(exhibitionDto.getImageData());
             exhibitionRepository.save(existingExhibition);
             updated = existingExhibition;
         }

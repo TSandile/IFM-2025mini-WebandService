@@ -33,8 +33,8 @@ const UpdateExhibition = () => {
     id: "",
     description: "",
     title: "",
-    start_date: "",
-    end_date: "",
+    startdate: "",
+    enddate: "",
     status: "",
     imageData: null,
   });
@@ -63,7 +63,7 @@ const UpdateExhibition = () => {
     } = event;
 
     setStatus(typeof value === "string" ? value : "");
-    // setFormData({ ...formData, statusInfo: value });
+    setFormData({ ...formData, status: value });
   };
 
   const handleFileChange = (event) => {
@@ -90,6 +90,9 @@ const UpdateExhibition = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(formData);
+    formData.start_date = formData.startdate;
+    formData.end_date = formData.enddate;
 
     try {
       const response = await fetch(
@@ -175,7 +178,7 @@ const UpdateExhibition = () => {
                 type="date"
                 sx={{ width: 340 }}
                 name="startdate"
-                value={formData.startdate}
+                value={formData.start_date}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
               />
@@ -190,7 +193,7 @@ const UpdateExhibition = () => {
                 type="date"
                 sx={{ width: 340 }}
                 name="enddate"
-                value={formData.startdate}
+                value={formData.end_date}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
               />
@@ -205,11 +208,11 @@ const UpdateExhibition = () => {
               <Select
                 labelId="demmo-multile-name-label"
                 id="demo-multiple-name"
-                value={status}
+                value={formData.status}
                 onChange={handleStatusChange}
                 input={<OutlinedInput label="Status" />}
                 MenuProps={MenuProps}
-                defaultValue={status}
+                defaultValue={statuses[1].value}
                 sx={{ width: 340 }}
               >
                 {statuses.map((status) => (
@@ -223,22 +226,6 @@ const UpdateExhibition = () => {
                 ))}
               </Select>
             </FormControl>
-          </div>
-
-          <div className="d-flex justify-content-around">
-            <span> Upload Image</span>
-          </div>
-
-          <div className="d-flex justify-content-around">
-            <Form.Group className="mb-3" controlId="formGroupEmail">
-              <TextField
-                varient="outlined"
-                type="file"
-                name="image"
-                onChange={handleFileChange}
-                InputProps={{ inputProps: { accept: "images/*" } }}
-              />
-            </Form.Group>
           </div>
 
           <div className="d-flex justify-content-around">

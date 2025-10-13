@@ -130,7 +130,7 @@ const UpdateArtPiece = () => {
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
                 id="outlined-basic"
-                label="Description"
+                label="Artist Name"
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
