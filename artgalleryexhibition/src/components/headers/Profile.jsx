@@ -5,7 +5,7 @@ import "../headers/DefaultHeader.css";
 import "../headers/Profile.css";
 
 const Profile = () => {
-  const [log, setLog] = useState(true);
+  const [log, setLog] = useState(false);
 
   const Logged = () => {
     return (

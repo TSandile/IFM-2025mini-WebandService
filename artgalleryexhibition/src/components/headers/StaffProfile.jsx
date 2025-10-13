@@ -4,7 +4,7 @@ import "../headers/Profile.css";
 import { Nav, NavDropdown } from "react-bootstrap";
 
 const StaffProfile = () => {
-  const [position, setPosition] = useState("owner");
+  const [position, setPosition] = useState("clerk");
 
   const displayStaffField = () => {
     if (position === "manager") {
@@ -12,7 +12,7 @@ const StaffProfile = () => {
         <>
           <div className="dropdown-nav">
             <NavDropdown title="Management Portal" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="">
+              <NavDropdown.Item as={Link} to="manageArtPieces">
                 Manage Art Piece
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="">
@@ -90,15 +90,26 @@ const StaffProfile = () => {
     } else if (position === "clerk") {
       return (
         <>
-          <div className="dropdwon-nav">
+          <div className="dropdown-nav">
+            <NavDropdown title="Clerk Portal" id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="manageExhibition">
+                Manage Exhibition
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="">
+                Registration Management
+              </NavDropdown.Item>
+            </NavDropdown>
+          </div>
+
+          {/* <div className="dropdwon-nav">
             <NavLink as={Link} to="" href="">
               Registrations
             </NavLink>
             {}
-            <NavLink as={Link} to="" href="">
+            <NavLink as={Link} to="" href="manageExhibition">
               Exhibition Management
             </NavLink>
-          </div>
+          </div> */}
         </>
       );
     } else if (position === "null") {
