@@ -3,6 +3,8 @@ package com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.contro
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.repository.ImageRepository;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/image")
+@CrossOrigin
 public class ImageController {
 
     @Autowired
@@ -34,7 +37,12 @@ public class ImageController {
     @GetMapping("/getImageById/{id}")
     public ResponseEntity<?> downloadById(@PathVariable Long id){
         byte[] imageData = imageService.downloadById(id);
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
+        String contentType = "image/jpeg";
+        ByteArrayResource resource = new ByteArrayResource(imageData);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"image-" + id + ".jpg\"")
+                .body(resource);
     }
 
 }

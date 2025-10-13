@@ -71,8 +71,8 @@ const StaffProfile = () => {
                 id="basic-nav-dropdown"
                 className="custom-nav-dropdown"
               >
-                <NavDropdown.Item as={Link} to="">
-                  Show All Ehibitions
+                <NavDropdown.Item as={Link} to="manageExhibition">
+                  Show All Exhibitions
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="addexhibition">
                   Add New Exhibition

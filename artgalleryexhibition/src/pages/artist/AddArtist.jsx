@@ -55,11 +55,12 @@ const AddArtist = () => {
 
       const data = await response.text();
       console.log("added artist:", data);
+      navigate("/manageArtist");
     } catch (error) {
       console.log("error adding artist", error.message);
     }
 
-    alert(" Artist form data submitted");
+    alert(" Artist submitted");
 
     //reset the form to their initial state
     // setFormData({

@@ -96,7 +96,7 @@ const AddArtPiece = () => {
       console.log("error adding art piece", error.message);
     }
 
-    alert(" Artist form data submitted");
+    alert(" Art Piece submitted");
   };
 
   return (

@@ -1,22 +1,17 @@
 import { Form } from "react-bootstrap";
 import {
-  Box,
   Button,
+  TextField,
+  Select,
+  MenuItem,
+  useTheme,
+  OutlinedInput,
   FormControl,
   InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-  useTheme,
 } from "@mui/material";
-import { useState } from "react";
-import "../exhibition/AddExhibition.css";
-//for date
-import dayjs from "dayjs";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useNavigate } from "react-router-dom";
+import "../artist/ArtistManage.css";
+import { use, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -29,24 +24,22 @@ const MenuProps = {
   },
 };
 
-const AddExhibition = () => {
-  const navigate = useNavigate();
+const UpdateExhibition = () => {
+  const { id } = useParams();
   const theme = useTheme();
   const statuses = ["Select Status", "Planned", "Removed", "Displayed"];
   const [status, setStatus] = useState(statuses[0]);
-
-  //for data input
   const [formData, setFormData] = useState({
-    title: "",
+    id: "",
     description: "",
-    startdate: "",
-    enddate: "",
+    title: "",
+    start_date: "",
+    end_date: "",
     status: "",
-    image: null,
+    imageData: null,
   });
 
-  //for dates
-  //const [selectedDate, setSelectedDate] = useState(dayjs());
+  const navigate = useNavigate();
 
   function getStyles(status, statusName, theme) {
     return {
@@ -56,30 +49,13 @@ const AddExhibition = () => {
     };
   }
 
-  //handle tehxt input change and dates
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-
-  //handler for file input
-  const handleFileChange = (event) => {
-    setFormData({
-      ...formData,
-      image: event.target.files[0], //store file object itself
-    });
-  };
-
-  //handle status change
-  // const handleStatusChangeInfo = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     statusInfo: status ,
-  //   });
-  // };
 
   const handleStatusChange = (event) => {
     const {
@@ -90,53 +66,74 @@ const AddExhibition = () => {
     // setFormData({ ...formData, statusInfo: value });
   };
 
-  //specifi handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("form data submitted:", formData);
-    // formData.status = status;
-    // formData.startdate = formData.startDate;
-    // formData.enddate = formData.endDate;
+  const handleFileChange = (event) => {
+    setFormData({
+      ...formData,
+      image: event.target.files[0], //store file object itself
+    });
+  };
 
-    const dataTosSend = new FormData();
-    dataTosSend.append("title", formData.title);
-    dataTosSend.append("description", formData.description);
-    dataTosSend.append("startdate", formData.startdate);
-    dataTosSend.append("enddate", formData.enddate);
-    dataTosSend.append("status", formData.status);
-    dataTosSend.append("image", formData.image);
+  useEffect(() => {
+    const fetchExhibition = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:2025/api/v1/exhibition/getExhibition/${id}`
+        );
+        const data = await response.json();
+        setFormData(data);
+      } catch (error) {
+        console.error("Error fetching exhibition:", error);
+      }
+    };
+    fetchExhibition();
+  }, [id]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
       const response = await fetch(
-        "http://localhost:2025/api/v1/exhibition/uploadExhibition",
-
+        `http://localhost:2025/api/v1/exhibition/updateExhibition/${id}`,
         {
-          method: "POST",
-          body: dataTosSend,
-          // headers: {
-          //   "Content-Type": "application/json",
-          // },
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.ok) {
+        console.log("Exhibition updated successfully");
+        alert("Exhibition updated successfully");
+        navigate("/manageExhibition");
       }
-
-      const data = await response.text();
-      console.log("added exhibition:", data);
-      alert("Exhibition submitted successfully!");
-      navigate("/manageExhibition");
     } catch (error) {
-      console.log("error adding exhibition", error.message);
+      console.error("Error updating exhibition:", error);
     }
   };
 
   return (
     <>
       <div className="center-form d-flex justify-content-center align-items-center">
-        <h1>Add Exhibition</h1>
+        <h1>Update Exhibition</h1>
         <Form onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-around">
+            <Form.Group className="mb-3" controlId="formGroupEmail">
+              <TextField
+                id="outlined-basic"
+                label=" Exhibition Id"
+                varient="outlined"
+                type="text"
+                sx={{ width: 340 }}
+                //for dynamic data
+                name="id"
+                value={formData.id}
+                read-only={true}
+              />
+            </Form.Group>
+          </div>
+
           <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
@@ -146,13 +143,14 @@ const AddExhibition = () => {
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
-                //for dynamic input data
+                //for dynamic data
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
               />
             </Form.Group>
           </div>
+
           <div className="d-flex justify-content-around">
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <TextField
@@ -161,13 +159,14 @@ const AddExhibition = () => {
                 varient="outlined"
                 type="text"
                 sx={{ width: 340 }}
-                //for dynamic input data
+                //for dynamic data
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
               />
             </Form.Group>
           </div>
+
           <div className="d-flex justify-content-around">
             <Form.Group className="mb-3">
               <TextField
@@ -249,7 +248,7 @@ const AddExhibition = () => {
               variant="contained"
               size="large"
             >
-              Confirm
+              Update
             </Button>
           </div>
         </Form>
@@ -257,4 +256,5 @@ const AddExhibition = () => {
     </>
   );
 };
-export default AddExhibition;
+
+export default UpdateExhibition;
