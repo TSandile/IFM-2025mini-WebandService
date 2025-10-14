@@ -8,8 +8,17 @@ import "../headers/defNav.css";
 //import "../headers/DefaultHeader.css";
 import Profile from "./Profile";
 import StaffProfile from "./StaffProfile";
+import { useUser } from "../../pages/user/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const DefaultHeader = () => {
+  // get login and logout function
+  const { user, logoutUser } = useUser();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser();
+  };
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark" id="def-nav">

@@ -1,19 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Nav } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import "../headers/DefaultHeader.css";
 import "../headers/Profile.css";
+import { useUser } from "../../pages/user/UserContext";
 
 const Profile = () => {
-  const [log, setLog] = useState(false);
+  const location = useLocation();
+
+  //get user data and logout function
+  const { user, logoutUser } = useUser();
+  // const [{ id, name, surname, email, password, type }, { onClick }] =
+  //   location.state || {}; //prevent errors
+  const [log, setLog] = useState();
+  const [userData, setUserData] = useState({
+    id: "",
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    type: "",
+  });
+
+  const HandleSignOut = () => {
+    logoutUser(); //call function to clear user state
+  };
 
   const Logged = () => {
     return (
       <>
         <div className="profile-component">
           <NavLink as={Link} to="" href="">
-            Logged in
+            {/* Logged in */}
+            Welcome, {user.name} {user.type}
           </NavLink>
+          <NavLink onClick={HandleSignOut}>Sign Out</NavLink>
         </div>
       </>
     );
@@ -37,7 +58,9 @@ const Profile = () => {
 
   return (
     <>
-      <div className="profile">{log ? <Logged /> : <NotLogged />}</div>
+      <div className="profile">
+        {user != null && user.id > 0 ? <Logged /> : <NotLogged />}
+      </div>
     </>
   );
 };

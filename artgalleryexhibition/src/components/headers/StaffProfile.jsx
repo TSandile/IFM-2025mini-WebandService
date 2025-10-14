@@ -1,12 +1,27 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import "../headers/Profile.css";
 import { Nav, NavDropdown } from "react-bootstrap";
+import { useUser } from "../../pages/user/UserContext";
 
 const StaffProfile = () => {
-  const [position, setPosition] = useState("clerk");
+  const location = useLocation();
+  // const { id, name, surname, email, password, type } = location.state || {}; //prevent errors
+
+  const [position, setPosition] = useState("");
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user && user.type) {
+      setPosition(user.type.toLowerCase());
+    } else {
+      setPosition("");
+    }
+  }, [user]);
 
   const displayStaffField = () => {
+    //setPosition(user.type);
+
     if (position === "manager") {
       return (
         <>
@@ -100,7 +115,6 @@ const StaffProfile = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </div>
-
           {/* <div className="dropdwon-nav">
             <NavLink as={Link} to="" href="">
               Registrations
@@ -112,7 +126,7 @@ const StaffProfile = () => {
           </div> */}
         </>
       );
-    } else if (position === "null") {
+    } else if (position === "") {
       return <></>;
     }
   };

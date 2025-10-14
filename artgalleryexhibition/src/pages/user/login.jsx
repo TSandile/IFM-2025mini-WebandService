@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useUser } from "./UserContext";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ const Login = () => {
     password: "",
   });
 
+  // user context hook  to use the login function
+  const { loginUser } = useUser();
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -29,15 +33,21 @@ const Login = () => {
     });
   };
 
+  //clear state
+  const clearUserData = () => {
+    setUser(null);
+    console.log("Data cleared? : " + user);
+  };
+
   //specific handler for submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("form data submitted:", formData);
 
-    const dataTosSend = new FormData();
-    dataTosSend.append("name", formData.name);
-    dataTosSend.append("biography", formData.biography);
-    dataTosSend.append("image", formData.image);
+    // const dataTosSend = new FormData();
+    // dataTosSend.append("name", formData.name);
+    // dataTosSend.append("biography", formData.biography);
+    // dataTosSend.append("image", formData.image);
 
     try {
       const response = await fetch(
@@ -53,27 +63,45 @@ const Login = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        alert(" user logged in");
-        user.id = data.id;
-        user.name = data.name;
-        user.surname = data.surname;
-        user.email = data.email;
-        user.password = data.password;
-        user.type = data.type;
-        // setUser(data);
-        console.log("sign in user:", user);
+        if (data != null) {
+          loginUser(data);
+          // user.id = data.id;
+          // user.name = data.name;
+          // user.surname = data.surname;
+          // user.email = data.email;
+          // user.password = data.password;
+          // user.type = data.type;
+          setUser(data);
+          console.log("sign in user:", user);
+          navigate(
+            "/defaultHeader"
+            //     , [
+            //     {
+            //       state: {
+            //         id: user.id,
+            //         name: user.name,
+            //         email: user.email,
+            //         surname: user.surname,
+            //         password: user.password,
+            //         type: user.type,
+            //       },
+            //       onclick: { clearUserData },
+            //     },
+            //     ,
+            //   ]
+          );
+          // alert(" user logged in");
+        } else {
+          alert("Login unsuccessfult");
+        }
+      } else if (!response.error) {
+        alert("Login  faild. Please check your credentials.");
       }
-      navigate("/");
+      //passing user data
+      // MyProvider({ user });
     } catch (error) {
       console.log("error signing in user", error.message);
     }
-
-    //reset the form to their initial state
-    // setFormData({
-    //   name: "",
-    //   biography: "",
-    //   image: null,
-    // });
   };
 
   return (
