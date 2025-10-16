@@ -1,14 +1,15 @@
 package com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities;
 
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.grammars.hql.HqlParser;
 
-import java.awt.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,6 +31,16 @@ public class Exhibition {
     referencedColumnName = "id")
     private ImageData imageData;
 
+    //one-to-many relationship to art piece
+    @OneToMany(
+            mappedBy = "exhibition",
+            cascade = CascadeType.ALL,
+            orphanRemoval = false   // artPieces removed from the list should not be deleted right on that event
+    )
+    @JsonManagedReference       //serialize collection
+    private List<ArtPiece> artPieces = new ArrayList<ArtPiece>();
+
+
 
     public Exhibition(String title, LocalDate startDate, LocalDate endDate, String status){
         this.title = title;
@@ -37,4 +48,16 @@ public class Exhibition {
         this.end_date = endDate;
         this.status = status;
     };
+
+    public void addArtPiece(ArtPiece artPiece){
+        artPieces.add(artPiece);
+        artPiece.setExhibition(this);
+    }
+
+    public void removeArtPiece(ArtPiece artPiece) {
+        artPieces.remove(artPiece);
+        artPiece.setExhibition(null);
+    }
+
+
 }

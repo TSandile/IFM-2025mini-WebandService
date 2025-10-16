@@ -53,6 +53,7 @@ const ExhibitionList = () => {
         }
 
         const data = await response.json();
+        console.log("Exhibitions: " + data);
         setExhibitions(data);
         setError(null);
       } catch (err) {

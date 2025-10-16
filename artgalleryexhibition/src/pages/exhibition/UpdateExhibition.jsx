@@ -237,6 +237,15 @@ const UpdateExhibition = () => {
             >
               Update
             </Button>
+
+            <Button
+              type="submit"
+              id="btn-confirm"
+              variant="contained"
+              size="large"
+            >
+              Assign Art Piece
+            </Button>
           </div>
         </Form>
       </div>

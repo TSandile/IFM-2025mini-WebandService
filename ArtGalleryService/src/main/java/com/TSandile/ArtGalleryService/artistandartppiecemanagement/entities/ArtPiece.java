@@ -1,6 +1,7 @@
 package com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities;
 
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,12 @@ public class ArtPiece {
     @JoinColumn(name = "image_id",
     referencedColumnName = "id")
     private ImageData imageData;
+
+    //Many-to-one relationship to exhibition
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exhibition_id")
+    @JsonBackReference      // ignore this reference during serialization
+    private Exhibition exhibition;
 
 //    @Lob
 //    private byte[] imageUrl;

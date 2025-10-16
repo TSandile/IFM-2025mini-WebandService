@@ -8,7 +8,7 @@ import AllArtPiece from "./pages/AllArtPiece";
 import AllArtist from "./pages/AllArtist";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import ArtistManage from "./pages/artist/ArtistManage";
+//import ArtistManage from "./pages/artist/ArtistManage";
 import AddArtist from "./pages/artist/AddArtist";
 import AddArtPiece from "./pages/artPiece/AddArtPiece";
 import AddExhibition from "./pages/exhibition/AddExhibition";
@@ -23,6 +23,7 @@ import UpdateExhibition from "./pages/exhibition/UpdateExhibition";
 import ExhibitionArtPiece from "./pages/exhibition/ExhibitionArtPiece";
 import Register from "./pages/user/Register";
 import Login from "./pages/user/login";
+import AssignArtPiece from "./pages/exhibition/AssignArtPiece";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -52,7 +53,9 @@ function App() {
           path="/exhibitionArtPiece/:id"
           element={<ExhibitionArtPiece />}
         />
-        User registration and login route pages
+        <Route path="/assignArtPiece/:id" element={<AssignArtPiece />} />
+
+        {/* User registration and login route pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

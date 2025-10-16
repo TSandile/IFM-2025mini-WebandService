@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import { Container, Nav } from "react-bootstrap";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { useState } from "react";
+
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "../headers/DefaultHeader.css";
 import "../headers/Profile.css";
 import { useUser } from "../../pages/user/UserContext";
 
 const Profile = () => {
-  const location = useLocation();
+  const navigate = useNavigate();
 
   //get user data and logout function
   const { user, logoutUser } = useUser();
   // const [{ id, name, surname, email, password, type }, { onClick }] =
   //   location.state || {}; //prevent errors
-  const [log, setLog] = useState();
+
   const [userData, setUserData] = useState({
     id: "",
     name: "",
@@ -24,6 +24,8 @@ const Profile = () => {
 
   const HandleSignOut = () => {
     logoutUser(); //call function to clear user state
+    navigate("/", { replace: true });
+    // navigate("/");
   };
 
   const Logged = () => {

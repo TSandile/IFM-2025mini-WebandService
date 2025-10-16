@@ -6,6 +6,7 @@ import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.entity.ImageData;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.repository.ImageRepository;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.image.util.ImageUtils;
+import com.TSandile.ArtGalleryService.artistandartppiecemanagement.reposistories.artPieceRepository;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.reposistories.exhibitionRepository;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.services.exhibitionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -25,6 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class exhibitionController {
     private final exhibitionService exhibitionService;
+    @Autowired
+    private final artPieceRepository artPieceRepository;
+    @Autowired
     private final exhibitionRepository exhibitionRepository;
     @Autowired
     private final ImageRepository imageRepository;
@@ -36,8 +41,6 @@ public class exhibitionController {
                                           @RequestParam("enddate") LocalDate enddate,
                                           @RequestParam("status")String status,
                                           @RequestParam("image") MultipartFile file) throws Exception{
-
-
 
         //Create entity and save the database
 
@@ -67,6 +70,18 @@ public class exhibitionController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/getExhibitionCount/{id}")
+    public ResponseEntity<?> getArtPieceCount(@PathVariable Long id) {
+        int count ;
+        if (!exhibitionRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Exhibition exhibition = exhibitionService.getExhibition(id);
+        count = exhibition.getArtPieces().size();
+        //Long count = exhibitionRepository.countArtPiecesByExhibitionId(id);
+        return ResponseEntity.ok(count);
+    }
+
     @GetMapping("/getExhibition/{id}")
     public ResponseEntity<?> getExhibition(@PathVariable Long id){
         Exhibition exhibition = exhibitionService.getExhibition(id);;
@@ -74,6 +89,43 @@ public class exhibitionController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(exhibition);
+    }
+
+    @PutMapping("/assignArtPiece/{exhId}/{artId}")
+    public ResponseEntity<?> assignArtPiece(@PathVariable Long exhId,
+                                            @PathVariable Long artId){
+        Optional<Exhibition> exhibitionOptional = exhibitionRepository.findById(exhId);
+        Optional<ArtPiece> artPieceOptional = artPieceRepository.findById(artId);
+        if(exhibitionOptional.isEmpty() || artPieceOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Exhibition exhibition = exhibitionOptional.get();
+        ArtPiece artPiece = artPieceOptional.get();
+
+        exhibition.addArtPiece(artPiece);
+        Exhibition updatedExhibition = exhibitionRepository.save(exhibition);
+        return ResponseEntity.ok(updatedExhibition);
+
+    }
+
+    @DeleteMapping("/removeArtPiece/{exhId}/{artId}")
+    public ResponseEntity<?> removeArtPiece(@PathVariable Long exhId,
+                                            @PathVariable Long artId){
+        return exhibitionRepository.findById(exhId)
+                .flatMap(exhibition -> artPieceRepository.findById(artId)
+                        .map(artPiece -> {
+                            if(artPiece.getExhibition() != null &&
+                                    artPiece.getExhibition().getId().equals(exhId)){
+                                exhibition.removeArtPiece(artPiece);
+
+                                artPiece.setExhibition(null);
+                                artPieceRepository.save(artPiece);
+
+                                return ResponseEntity.ok().build();
+                            }
+                            return ResponseEntity.badRequest().build();
+                        })
+                ).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/getAllExhibitions")

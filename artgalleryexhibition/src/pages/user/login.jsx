@@ -34,10 +34,10 @@ const Login = () => {
   };
 
   //clear state
-  const clearUserData = () => {
-    setUser(null);
-    console.log("Data cleared? : " + user);
-  };
+  //   const clearUserData = () => {
+  //     setUser(null);
+  //     console.log("Data cleared? : " + user);
+  //   };
 
   //specific handler for submit
   const handleSubmit = async (event) => {
@@ -65,40 +65,17 @@ const Login = () => {
         const data = await response.json();
         if (data != null) {
           loginUser(data);
-          // user.id = data.id;
-          // user.name = data.name;
-          // user.surname = data.surname;
-          // user.email = data.email;
-          // user.password = data.password;
-          // user.type = data.type;
+
           setUser(data);
           console.log("sign in user:", user);
-          navigate(
-            "/defaultHeader"
-            //     , [
-            //     {
-            //       state: {
-            //         id: user.id,
-            //         name: user.name,
-            //         email: user.email,
-            //         surname: user.surname,
-            //         password: user.password,
-            //         type: user.type,
-            //       },
-            //       onclick: { clearUserData },
-            //     },
-            //     ,
-            //   ]
-          );
-          // alert(" user logged in");
+          //  navigate("/");
         } else {
           alert("Login unsuccessfult");
         }
       } else if (!response.error) {
         alert("Login  faild. Please check your credentials.");
       }
-      //passing user data
-      // MyProvider({ user });
+      navigate("/", { replace: true });
     } catch (error) {
       console.log("error signing in user", error.message);
     }

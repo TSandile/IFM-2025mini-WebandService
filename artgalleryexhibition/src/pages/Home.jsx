@@ -1,64 +1,69 @@
 import "../css/Home.css";
+import theQueenImage from "../images/images (15).jpg";
+import waveImage from "../images/images (1).jpg";
+import skyImage from "../images/download (3).jpg";
+import { useNavigate } from "react-router-dom";
 
 const featuredArtworks = [
   {
     id: 101,
-    title: "Abstract Harmony",
-    artist: "Anya Zola",
-    image: "abstract.jpg",
+    title: " The Wave",
+    artist: "Bongani M",
+    image: waveImage,
   },
   {
     id: 102,
-    title: "Coastal Serenity",
-    artist: "Ben Carter",
-    image: "coast.jpg",
+    title: "The Queen",
+    artist: "Jay Something",
+    image: theQueenImage,
   },
   {
     id: 103,
-    title: "The Urban Pulse",
-    artist: "Chloe Davis",
-    image: "urban.jpg",
+    title: "The Sky",
+    artist: "Jay Something",
+    image: skyImage,
   },
 ];
-
-const galleryInfo = {
-  address: "123 Museum Way, Art City, 54321",
-  hours: "Mon-Sat: 10:00 AM - 6:00 PM",
-  phone: "(555) 123-4567",
-};
 
 // --- Component for a Featured Card ---
 const FeaturedCard = ({ artwork }) => (
   <div className="featured-card">
     <div className="card-image-placeholder">
-      {/* Replace this with an actual <img src={artwork.image} /> tag */}
+      <img src={artwork.image} alt={artwork.title} width={290} height={200} />
     </div>
     <div className="card-info">
       <h4>{artwork.title}</h4>
       <p>by **{artwork.artist}**</p>
-      <button className="view-details-btn">View Details</button>
+      {/* <button className="view-details-btn">View Details</button> */}
     </div>
   </div>
 );
+
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleExplore = () => {
+    navigate("/artPieces");
+  };
+
   return (
     <>
       <div className="gallery-home">
-        {/* 1. Hero Section */}
         <section className="hero-section">
-          <h1>Welcome to The Renaissance Canvas Gallery</h1>
+          <h1>Welcome To The Joburg Art Gallery Exhibition</h1>
           <p className="subtitle">
-            Where history meets contemporary art. Explore our curated
+            Where talent meets the right candidates. Explore the art
             collections.
           </p>
-          <button className="explore-btn">Start Your Exploration</button>
+          <button onClick={() => handleExplore()} className="explore-btn">
+            Start Your Exploration
+          </button>
         </section>
 
         <hr />
 
-        {/* 2. Featured Artworks Section */}
         <section className="featured-section">
-          <h2>✨ Featured Artworks of the Month</h2>
+          <h2> Featured Art Pieces</h2>
           <div className="featured-list">
             {featuredArtworks.map((artwork) => (
               <FeaturedCard key={artwork.id} artwork={artwork} />
@@ -67,32 +72,6 @@ const Home = () => {
         </section>
 
         <hr />
-
-        {/* 3. About & Info Section */}
-        <section className="info-section">
-          <div className="about-us">
-            <h2>Our Mission</h2>
-            <p>
-              We are dedicated to fostering a love for the arts by showcasing
-              diverse talents from around the globe. Join us in celebrating
-              creativity and culture.
-            </p>
-            <a href="/about" className="more-link">
-              Read More About Us &rarr;
-            </a>
-          </div>
-          <div className="visit-info">
-            <h2>Plan Your Visit</h2>
-            <p>📍 **Address:** {galleryInfo.address}</p>
-            <p>⏰ **Hours:** {galleryInfo.hours}</p>
-            <p>📞 **Contact:** {galleryInfo.phone}</p>
-          </div>
-        </section>
-
-        {/* 4. Footer Placeholder */}
-        <footer className="home-footer">
-          © 2025 The Renaissance Canvas Gallery. All rights reserved.
-        </footer>
       </div>
     </>
   );

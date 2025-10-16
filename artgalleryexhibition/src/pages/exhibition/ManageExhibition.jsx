@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const ManageExhibition = () => {
   const [exhibition, setExhibition] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,8 +13,10 @@ const ManageExhibition = () => {
         const response = await fetch(
           "http://localhost:2025/api/v1/exhibition/getAllExhibitions"
         );
-        const data = await response.json();
-        setExhibition(data);
+        if (response.ok) {
+          const data = await response.json();
+          setExhibition(data);
+        }
       } catch (error) {
         console.error("Error fetching Exhibition:", error);
       }
@@ -25,12 +28,32 @@ const ManageExhibition = () => {
     navigate(`/updateExhibition/${id}`);
   };
 
-  const handleDelete = (id) => {
-    navigate(`/deleteExhibition/${id}`);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:2025/api/v1/exhibition/deleteExhibition/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.text();
+      console.log("deleted exhibition " + data);
+    } catch (error) {
+      console.error("Error deleting art piece:", error);
+      alert("Failed to delete exhibition");
+    }
+    navigate("/manageExhibition");
   };
 
   const handleArtPieceAssigned = (id) => {
     navigate(`/exhibitionArtPiece/${id}`);
+  };
+
+  const handleAssignArtPiece = (id) => {
+    navigate(`/assignArtPiece/${id}`);
   };
 
   return (
@@ -72,7 +95,7 @@ const ManageExhibition = () => {
               <th>Start Date</th>
               <th>End Date</th>
               <th>Status</th>
-              <th>ImageData Id</th>
+              <th>Assined Art Pieces</th>
 
               <th>Action</th>
             </tr>
@@ -86,41 +109,53 @@ const ManageExhibition = () => {
                 <td>{exhib.start_date}</td>
                 <td>{exhib.end_date}</td>
                 <td>{exhib.status}</td>
-                <td>{exhib.imageData.id}</td>
+                <td>{exhib.artPieces.length}</td>
 
                 <td>
-                  <Button
-                    style={{
-                      backgroundColor: "black",
-                      color: "white",
-                      width: "200px",
-                      font: "bold",
-                    }}
-                    variant="outline-secondary"
-                    onClick={() => handleUpdate(exhib.id)}
-                  >
-                    Update
-                  </Button>{" "}
-                  <Button
-                    style={{ width: "200px", font: "bold" }}
-                    variant="outline-danger"
-                    onClick={() => handleDelete(exhib.id)}
-                  >
-                    Delete
-                  </Button>
+                  <div className="d-flex justify-content-around">
+                    <Button
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                        width: "200px",
+                        font: "bold",
+                      }}
+                      variant="outline-secondary"
+                      onClick={() => handleUpdate(exhib.id)}
+                    >
+                      Update
+                    </Button>{" "}
+                    <Button
+                      style={{ width: "200px", font: "bold" }}
+                      variant="outline-danger"
+                      onClick={() => handleDelete(exhib.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                  <div className="d-flex justify-content-around">
+                    <Button
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                        width: "200px",
+                        font: "bold",
+                      }}
+                      variant="outline-secondary"
+                      onClick={() => handleAssignArtPiece(exhib.id)}
+                    >
+                      Assigned Art Piece
+                    </Button>
+                    <Button
+                      style={{ width: "200px", font: "bold" }}
+                      variant="outline-danger"
+                      onClick={() => handleArtPieceAssigned(exhib.id)}
+                    >
+                      Remove Art Piece
+                    </Button>
+                  </div>
+
                   {""}
-                  <Button
-                    style={{
-                      backgroundColor: "black",
-                      color: "white",
-                      width: "200px",
-                      font: "bold",
-                    }}
-                    variant="outline-secondary"
-                    onClick={() => handleArtPieceAssigned(exhib.id)}
-                  >
-                    Art Piece Assigned
-                  </Button>
                 </td>
               </tr>
             ))}
