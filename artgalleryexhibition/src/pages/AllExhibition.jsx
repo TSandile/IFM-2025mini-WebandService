@@ -1,13 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, CardMedia, Grid } from "@mui/material";
+import { useUser } from "../pages/user/UserContext";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 // Define the API endpoint URL
 const API_URL = "http://localhost:2025/api/v1/exhibition/getAllExhibitions";
 
 const ExhibitionList = () => {
+  const navigate = useNavigate();
   const [exhibitions, setExhibitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user, logoutUser } = useUser();
+
+  const [userData, setUserData] = useState({
+    id: "",
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    type: "",
+  });
+
+  const handleSubmit = (id) => {
+    navigate(`/registerExhibition/${id}`);
+  };
+
+  const Logged = ({ exhibition }) => {
+    return (
+      <>
+        <div>
+          <Button
+            style={{
+              backgroundColor: "black",
+              color: "white",
+              width: "200px",
+              font: "bold",
+            }}
+            variant="outline-secondary"
+            onClick={() => handleSubmit(exhibition.id)}
+          >
+            Register
+          </Button>
+        </div>
+      </>
+    );
+  };
 
   const ExhibitionCard = ({ exhibition }) => {
     const imageUrl = `http://localhost:2025/image/getImageById/${exhibition.imageData.id}`;
@@ -38,6 +77,13 @@ const ExhibitionList = () => {
           <Typography variant="body2" color="text.secondary">
             End Date: {exhibition.end_date}
           </Typography>
+          <div>
+            {user != null && user.type == "" ? (
+              <Logged exhibition={exhibition} />
+            ) : (
+              ""
+            )}
+          </div>
         </CardContent>
       </Card>
     );

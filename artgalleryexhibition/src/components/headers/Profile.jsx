@@ -10,8 +10,6 @@ const Profile = () => {
 
   //get user data and logout function
   const { user, logoutUser } = useUser();
-  // const [{ id, name, surname, email, password, type }, { onClick }] =
-  //   location.state || {}; //prevent errors
 
   const [userData, setUserData] = useState({
     id: "",

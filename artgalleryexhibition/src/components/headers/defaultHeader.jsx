@@ -23,7 +23,7 @@ const DefaultHeader = () => {
     <>
       <Navbar bg="dark" data-bs-theme="dark" id="def-nav">
         <Container>
-          <Navbar.Brand to="/" id="brand" href="home">
+          <Navbar.Brand as={Link} to="/" id="brand" href="/home">
             Art Gallery Exhibition
           </Navbar.Brand>
           <Nav className="me-auto">

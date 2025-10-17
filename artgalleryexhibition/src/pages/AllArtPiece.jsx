@@ -14,7 +14,6 @@ const ArtpieceList = () => {
 
     return (
       <Card sx={{ maxWidth: 345, height: "100%" }}>
-        {/* Display the Image */}
         {piece.imageData.name && (
           <CardMedia
             component="img"

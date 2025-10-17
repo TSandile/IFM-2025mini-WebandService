@@ -26,14 +26,13 @@ const AddArtPiece = () => {
   const [pieceImage, setPieceImage] = useState(null);
   const [artistImage, setArtistImage] = useState(null);
 
-  const handleArtistImage = (e) => {
-    setArtistImage(e.target.files[0]);
-  };
-
   const handleArtPieceImage = (e) => {
     setPieceImage(e.target.files[0]);
   };
 
+  const handleArtistImage = (e) => {
+    setArtistImage(e.target.files[0]);
+  };
   // Handler for standard text inputs (handles nesting for artist fields)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -66,16 +65,16 @@ const AddArtPiece = () => {
     console.log("Art Piece Image:", pieceImage ? pieceImage.name : "No file");
     console.log("Artist Image:", artistImage ? artistImage.name : "No file");
 
-    formData.artist.image = artistImage;
     formData.image = pieceImage;
+    formData.artist.image = artistImage;
 
     const dataToSend = new FormData();
     dataToSend.append("title", formData.title);
     dataToSend.append("description", formData.description);
-    dataToSend.append("image", formData.image);
+    dataToSend.append("image", pieceImage);
     dataToSend.append("name", formData.artist.name);
     dataToSend.append("biography", formData.artist.biography);
-    dataToSend.append("image", formData.artist.image);
+    dataToSend.append("image", artistImage);
 
     try {
       const response = await fetch(

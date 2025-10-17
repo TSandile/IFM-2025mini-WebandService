@@ -3,8 +3,11 @@ package com.TSandile.ArtGalleryService.artistandartppiecemanagement.controllers;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.User;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos.LoginRequest;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.entities.dtos.UserDto;
+import com.TSandile.ArtGalleryService.artistandartppiecemanagement.reposistories.userRepository;
 import com.TSandile.ArtGalleryService.artistandartppiecemanagement.services.userService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,8 @@ import java.util.Optional;
 @RequestMapping("api/v1/user")
 public class UserController {
     private final userService userService;
+    @Autowired
+    private final userRepository userRepository;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
@@ -36,4 +41,16 @@ public class UserController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+        try{
+            userRepository.deleteById(id);
+            return new ResponseEntity<>("Registration with id: " + id + " deleted", HttpStatus.OK);
+        }catch(EntityNotFoundException ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }

@@ -110,7 +110,7 @@ const StaffProfile = () => {
               <NavDropdown.Item as={Link} to="manageExhibition">
                 Manage Exhibition
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="">
+              <NavDropdown.Item as={Link} to="manageRegistration">
                 Registration Management
               </NavDropdown.Item>
             </NavDropdown>

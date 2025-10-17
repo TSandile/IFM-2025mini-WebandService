@@ -1,6 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import DefaultHeader from "./components/headers/defaultHeader";
 import Home from "./pages/Home";
 import AllExhibition from "./pages/AllExhibition";
@@ -24,10 +24,25 @@ import ExhibitionArtPiece from "./pages/exhibition/ExhibitionArtPiece";
 import Register from "./pages/user/Register";
 import Login from "./pages/user/login";
 import AssignArtPiece from "./pages/exhibition/AssignArtPiece";
+import DeleteExhibition from "./pages/exhibition/DeleteExhibition";
+
+import { useEffect } from "react";
+import RegisterExhibition from "./pages/RegisterExhibition";
+import ManageRegistration from "./pages/ManageRegistration";
+import DeleteRegistration from "./pages/artPiece/ConfirmRegDelete";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  // const navigate = useNavigate();
+  // const location = useLocation();
+
+  // useEffect(() => {
+  //   if (location.pathname !== "/") {
+  //     navigate("/");
+  //     console.log(" navigate to home after refresh");
+  //   }
+  // }, [location.pathname, navigate]);
   return (
     <>
       <DefaultHeader />
@@ -47,8 +62,10 @@ function App() {
         <Route path="/updateArtist/:id" element={<UpdateArtist />} />
         <Route path="/deleteArtist/:id" element={<DeleteArtist />} />
         <Route path="/manageExhibition" element={<ManageExhibition />} />
+        <Route path="/manageRegistration" element={<ManageRegistration />} />
         <Route path="/updateExhibition/:id" element={<UpdateExhibition />} />
-        <Route path="/deleteExhibition/:id" element={<ManageExhibition />} />
+        <Route path="/deleteExhibition/:id" element={<DeleteExhibition />} />
+        <Route path="/confirmDelete/:id" element={<DeleteRegistration />} />
         <Route
           path="/exhibitionArtPiece/:id"
           element={<ExhibitionArtPiece />}
@@ -58,6 +75,10 @@ function App() {
         {/* User registration and login route pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/registerExhibition/:id"
+          element={<RegisterExhibition />}
+        />
       </Routes>
     </>
   );

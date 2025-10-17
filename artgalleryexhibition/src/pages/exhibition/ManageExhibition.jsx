@@ -29,23 +29,7 @@ const ManageExhibition = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      const response = await fetch(
-        `http://localhost:2025/api/v1/exhibition/deleteExhibition/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.text();
-      console.log("deleted exhibition " + data);
-    } catch (error) {
-      console.error("Error deleting art piece:", error);
-      alert("Failed to delete exhibition");
-    }
-    navigate("/manageExhibition");
+    navigate(`/deleteExhibition/${id}`);
   };
 
   const handleArtPieceAssigned = (id) => {
